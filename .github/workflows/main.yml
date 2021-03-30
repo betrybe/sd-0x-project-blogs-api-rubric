@@ -1,7 +1,20 @@
 on:
   pull_request:
     types: [opened, synchronize]
+
 jobs:
+  eslint:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1.4.4
+        with:
+          node-version: '12'
+      - name: ESLint
+        uses: betrybe/eslint-linter-action@v2.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   evaluator_job:
     name: Evaluator Job
     runs-on: ubuntu-18.04
@@ -15,20 +28,12 @@ jobs:
           - 33060:33060
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1.4.4
-        with:
-          node-version: '12'
-      - name: Static code analysis step
-        uses: betrybe/eslint-linter-action@v2.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Evaluator step
         id: evaluator
         uses: betrybe/jest-evaluator-action@v7
         with:
           repository-test-name: 'betrybe/sd-0x-project-blogs-api-tests'
-          repository-test-branch: 'master'
+          repository-test-branch: 'ajustes_testes'
           npm-start: true
         env:
           MYSQL_USER: 'root'
