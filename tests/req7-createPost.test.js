@@ -153,6 +153,42 @@ describe('7 - Sua aplicação deve ter o endpoint POST `/post`', () => {
       });
   });
 
+  it('Será validado que não é possível cadastrar um blogpost com uma categoria inexistente', async () => {
+    let token;
+    await frisby
+      .post(`${url}/login`,
+        {
+          email: 'lewishamilton@gmail.com',
+          password: '123456',
+        })
+      .expect('status', 200)
+      .then((response) => {
+        const { body } = response;
+        const result = JSON.parse(body);
+        token = result.token;
+      });
+
+    await frisby
+      .setup({
+        request: {
+          headers: {
+            Authorization: token,
+            'Content-Type': 'application/json',
+          },
+        },
+      })
+      .post(`${url}/post`, {
+        title: "Carros elétricos vão dominar o mundo?",
+        content: "Já é possivel encontrar diversos carros elétricos em todo o mundo, será esse nosso futuro?",
+        categoryId: [3],
+      })
+      .expect('status', 400)
+      .then((response) => {
+        const { json } = response;
+        expect(json.message).toBe('"categoryId" not found');
+      });
+  });
+
   it('Será validado que não é possível cadastrar um blogpost sem o token', async () => {
     await frisby
       .setup({
@@ -166,6 +202,7 @@ describe('7 - Sua aplicação deve ter o endpoint POST `/post`', () => {
       .post(`${url}/post`, {
         title: 'Fórmula 1',
         content: 'O campeão do ano!',
+        categoryId: [1],
       })
       .expect('status', 401)
       .then((response) => {
@@ -187,6 +224,8 @@ describe('7 - Sua aplicação deve ter o endpoint POST `/post`', () => {
       .post(`${url}/post`, {
         title: 'Fórmula 1',
         content: 'O campeão do ano!',
+        categoryId: [1],
+
       })
       .expect('status', 401)
       .then((response) => {

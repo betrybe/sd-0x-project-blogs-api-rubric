@@ -42,7 +42,7 @@
     },
     {
       "description": "11 - Sua aplicação deve ter o endpoint DELETE `post/:id`",
-      "bonus": false
+      "bonus": true
     },
     {
       "description": "12 - Sua aplicação deve ter o endpoint DELETE `/user/me`",

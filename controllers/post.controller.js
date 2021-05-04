@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { checkToken, decodePayload } = require('../auth/jwt.auth');
 const { postServices } = require('../services');
+const checkCategories = require('../middlewares/checkCategories');
 
 const postRouter = Router();
 
@@ -16,20 +17,24 @@ const INVALID_TOKEN = {
   status: 401,
 };
 
-postRouter.post('/', async (req, res, next) => {
+postRouter.post('/', checkCategories, async (req, res, next) => {
   try {
     const { title, content, categoryId } = req.body;
     const token = req.headers.authorization;
 
     if (!token) return next(TOKEN_NOT_FOUND);
     checkToken(token);
+    console.log(checkToken(token));
 
     const { payload: { id: userId } } = decodePayload(token);
+
     const newPost = await postServices.createPost(userId, title, content, categoryId);
 
     res.status(201).json(newPost);
   } catch (error) {
+    console.log('ERRO NO CONTROLLER: ', error.message);
     if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    console.log(error.message);
     next(error);
   }
 });
