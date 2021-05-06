@@ -93,6 +93,9 @@ postRouter.put('/:id', async (req, res, next) => {
     checkToken(token);
 
     const { payload: { id: userId } } = decodePayload(token);
+
+    if (req.body.categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
+
     const updatedPost = await postServices.editPost(req.params.id, userId, title, content);
 
     res.status(200).json(updatedPost);

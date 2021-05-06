@@ -40,7 +40,7 @@ const createPost = async (userId, title, content, categoryIds) => {
 
   if (!error) {
     categoryIds.forEach((id) => {
-      postsCategories.create({ postId: newPost.id, categoryIds: id });
+      postsCategories.create({ postId: newPost.id, categoryId: id });
     });
   }
   return newPost;
