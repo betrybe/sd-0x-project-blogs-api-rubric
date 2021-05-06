@@ -10,7 +10,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
-      categoryId: {
+      categoryIds: {
         primary_key: true,
         references: { model: 'Categories', key: 'id' },
         onUpdate: 'CASCADE',

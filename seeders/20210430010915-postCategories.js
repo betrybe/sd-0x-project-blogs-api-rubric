@@ -4,11 +4,11 @@ module.exports = {
       [
         {
           postId: 1,
-          categoryId: 1,
+          categoryIds: 1,
         },
         {
           postId: 2,
-          categoryId: 2,
+          categoryIds: 2,
         },
 
       ], { timestamps: false });
