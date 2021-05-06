@@ -6,7 +6,7 @@ const { Posts, User, Categories, postsCategories } = require('../models');
 const POST_CREATE_SCHEMA = Joi.object({
   title: Joi.string().required(),
   content: Joi.string().required(),
-  categoryId: Joi.array().required(),
+  categoryIds: Joi.array().required(),
 });
 
 const POST_EDIT_SCHEMA = Joi.object({
@@ -32,15 +32,15 @@ const UNAUTHORIZED_USER = {
   status: 401,
 };
 
-const createPost = async (userId, title, content, categoryId) => {
-  const { error } = POST_CREATE_SCHEMA.validate({ title, content, categoryId });
+const createPost = async (userId, title, content, categoryIds) => {
+  const { error } = POST_CREATE_SCHEMA.validate({ title, content, categoryIds });
 
   if (error) throw INVALID_DATA(error.message);
   const newPost = await Posts.create({ userId, title, content });
 
   if (!error) {
-    categoryId.forEach((id) => {
-      postsCategories.create({ postId: newPost.id, categoryId: id });
+    categoryIds.forEach((id) => {
+      postsCategories.create({ postId: newPost.id, categoryIds: id });
     });
   }
   return newPost;
@@ -100,11 +100,15 @@ const getPostByQuery = async (query) => {
         },
       },
     },
-    include: {
+    include: [{
       model: User,
       as: 'user',
       attributes: { exclude: 'password' },
     },
+    {
+      model: Categories, as: 'categories', through: { attributes: [] },
+    },
+    ],
   });
 
   return post;
