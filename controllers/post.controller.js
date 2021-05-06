@@ -19,22 +19,19 @@ const INVALID_TOKEN = {
 
 postRouter.post('/', checkCategories, async (req, res, next) => {
   try {
-    const { title, content, categoryId } = req.body;
+    const { title, content, categoryIds } = req.body;
     const token = req.headers.authorization;
 
     if (!token) return next(TOKEN_NOT_FOUND);
     checkToken(token);
-    console.log(checkToken(token));
 
     const { payload: { id: userId } } = decodePayload(token);
 
-    const newPost = await postServices.createPost(userId, title, content, categoryId);
+    const newPost = await postServices.createPost(userId, title, content, categoryIds);
 
     res.status(201).json(newPost);
   } catch (error) {
-    console.log('ERRO NO CONTROLLER: ', error.message);
     if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
-    console.log(error.message);
     next(error);
   }
 });
@@ -58,7 +55,6 @@ postRouter.get('/', async (req, res, next) => {
 postRouter.get('/search', async (req, res, next) => {
   try {
     const { q: query } = req.query;
-    console.log(query);
     const token = req.headers.authorization;
 
     if (!token) return next(TOKEN_NOT_FOUND);
@@ -68,7 +64,6 @@ postRouter.get('/search', async (req, res, next) => {
 
     return res.status(200).json(post);
   } catch (error) {
-    console.log(error.message);
     if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
   }
 });
