@@ -8,24 +8,26 @@ const INVALID_DATA = (message) => ({
 });
 
 const POST_CREATE_SCHEMA = Joi.object({
-  categoryId: Joi.array().required(),
+  categoryIds: Joi.array().required(),
 });
 
 const checkCategories = async (req, res, next) => {
   try {
-    const { categoryId } = req.body;
-    const { error } = POST_CREATE_SCHEMA.validate({ categoryId });
+    const { categoryIds } = req.body;
+    const { error } = POST_CREATE_SCHEMA.validate({ categoryIds });
 
     if (error) throw INVALID_DATA(error.message);
 
-    const categoriesPromise = categoryId.map((item) => Categories.findAll({ where: { id: item } }));
+    const categoriesPromise = categoryIds.map((item) => Categories.findAll({
+      where: { id: item },
+    }));
 
     const resolvePromise = await Promise.all(categoriesPromise);
 
     const isValid = resolvePromise.some((item) => item.length <= 0);
 
     if (isValid) {
-      return res.status(400).json({ message: '"categoryId" not found' });
+      return res.status(400).json({ message: '"categoryIds" not found' });
     }
 
     next();
