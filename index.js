@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginController, postController, userController, categoriesController } = require('./controllers');
+const controllers = require('./controllers');
 require('dotenv').config();
 
 const app = express();
@@ -13,10 +13,10 @@ app.get('/', (_req, res) => {
 
 app.use('/', express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/login', loginController);
-app.use('/post', postController);
-app.use('/user', userController);
-app.use('/categories', categoriesController);
+app.use('/login', controllers.loginController);
+app.use('/post', controllers.postController);
+app.use('/user', controllers.userController);
+app.use('/categories', controllers.categoriesController);
 
 const errorMiddleware = (err, _req, res, _next) => {
   console.error('ERROR: ', err.message, err.status); // not suit for production

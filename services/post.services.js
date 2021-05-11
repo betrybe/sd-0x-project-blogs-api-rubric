@@ -92,22 +92,13 @@ const getPostByQuery = async (query) => {
   const post = Posts.findAll({
     where: {
       [Op.or]: {
-        title: {
-          [Op.like]: `%${query}%`,
-        },
-        content: {
-          [Op.like]: `%${query}%`,
-        },
+        title: { [Op.like]: `%${query}%` },
+        content: { [Op.like]: `%${query}%` },
       },
     },
-    include: [{
-      model: User,
-      as: 'user',
-      attributes: { exclude: 'password' },
-    },
-    {
-      model: Categories, as: 'categories', through: { attributes: [] },
-    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Categories, as: 'categories', through: { attributes: [] } },
     ],
   });
 

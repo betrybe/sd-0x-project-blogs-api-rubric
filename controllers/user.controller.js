@@ -16,6 +16,8 @@ const INVALID_TOKEN = {
   status: 401,
 };
 
+const JWT_MALFORMED = 'jwt malformed';
+
 userRouter.post('/', async (req, res, next) => {
   try {
     const { displayName, email, password, image } = req.body;
@@ -44,7 +46,7 @@ userRouter.get('/', async (req, res, next) => {
 
     res.status(200).json(users);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
     next(error);
   }
 });
@@ -60,7 +62,7 @@ userRouter.get('/:id', async (req, res, next) => {
 
     res.status(200).json(user);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
     next(error);
   }
 });
@@ -78,7 +80,7 @@ userRouter.delete('/me', async (req, res, next) => {
 
     res.sendStatus(204);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
     next(error);
   }
 });

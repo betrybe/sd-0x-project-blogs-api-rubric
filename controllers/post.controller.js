@@ -17,6 +17,8 @@ const INVALID_TOKEN = {
   status: 401,
 };
 
+const JWT_MALFORMED = 'jwt malformed';
+
 postRouter.post('/', checkCategories, async (req, res, next) => {
   try {
     const { title, content, categoryIds } = req.body;
@@ -31,7 +33,7 @@ postRouter.post('/', checkCategories, async (req, res, next) => {
 
     res.status(201).json(newPost);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
     next(error);
   }
 });
@@ -47,7 +49,7 @@ postRouter.get('/', async (req, res, next) => {
 
     res.status(200).json(posts);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
     next(error);
   }
 });
@@ -64,7 +66,7 @@ postRouter.get('/search', async (req, res, next) => {
 
     return res.status(200).json(post);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
   }
 });
 
@@ -79,14 +81,14 @@ postRouter.get('/:id', async (req, res, next) => {
 
     res.status(200).json(post);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
     next(error);
   }
 });
 
 postRouter.put('/:id', async (req, res, next) => {
   try {
-    const { title, content } = req.body;
+    const { title, content, categoryIds } = req.body;
     const token = req.headers.authorization;
 
     if (!token) return next(TOKEN_NOT_FOUND);
@@ -94,13 +96,13 @@ postRouter.put('/:id', async (req, res, next) => {
 
     const { payload: { id: userId } } = decodePayload(token);
 
-    if (req.body.categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
+    if (categoryIds) return res.status(400).json({ message: 'Categories cannot be edited' });
 
     const updatedPost = await postServices.editPost(req.params.id, userId, title, content);
 
     res.status(200).json(updatedPost);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
     next(error);
   }
 });
@@ -117,7 +119,7 @@ postRouter.delete('/:id', async (req, res, next) => {
 
     res.sendStatus(204);
   } catch (error) {
-    if (error.message === 'jwt malformed') return next(INVALID_TOKEN);
+    if (error.message === JWT_MALFORMED) return next(INVALID_TOKEN);
     next(error);
   }
 });

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/jest": "25.1.4",
     "@hapi/joi": "^17.1.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -10,7 +11,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "sequelize": "^6.3.4",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "eslint-config-trybe-backend": "1.0.3"
   },
   "scripts": {
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate $",
@@ -20,13 +22,12 @@
     "test": "jest --runInBand",
     "test-coverage": "jest --runInBand --coverage",
     "debug": "nodemon index.js",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
+    "lint": "eslint --no-inline-config --ext .js,.jsx --no-error-on-unmatched-pattern -c .eslintrc.json ."
   },
   "devDependencies": {
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.2.0",
-    "eslint-plugin-import": "2.21.2",
-    "eslint-plugin-sonarjs": "0.5.0",
+    "eslint-plugin-import": "2.22.1",
     "frisby": "2.1.2",
     "jest": "26.0.1",
     "sequelize-cli": "6.2.0",
