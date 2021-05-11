@@ -17,32 +17,40 @@
       "bonus": false
     },
     {
-      "description": "5 - Sua aplicação deve ter o endpoint DELETE `/user/me`",
+      "description": "5 - Sua aplicação deve ter o endpoint POST `/categories`",
       "bonus": false
     },
     {
-      "description": "6 - Sua aplicação deve ter o endpoint POST `/post`",
+      "description": "6 - Sua aplicação deve ter o endpoint GET `/categories`",
       "bonus": false
     },
     {
-      "description": "7 - Sua aplicação deve ter o endpoint GET `/post`",
+      "description": "7 - Sua aplicação deve ter o endpoint POST `/post`",
       "bonus": false
     },
     {
-      "description": "8 - Sua aplicação deve ter o endpoint GET `post/:id`",
+      "description": "8 - Sua aplicação deve ter o endpoint GET `/post`",
       "bonus": false
     },
     {
-      "description": "9 - Sua aplicação deve ter o endpoint PUT `/post/:id`",
+      "description": "9 - Sua aplicação deve ter o endpoint GET `post/:id``",
       "bonus": false
     },
     {
-      "description": "10 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTerm`",
+      "description": "10 - Sua aplicação deve ter o endpoint PUT `/post/:id`",
       "bonus": false
     },
     {
       "description": "11 - Sua aplicação deve ter o endpoint DELETE `post/:id`",
-      "bonus": false
+      "bonus": true
+    },
+    {
+      "description": "12 - Sua aplicação deve ter o endpoint DELETE `/user/me`",
+      "bonus": true
+    },
+    {
+      "description": "13 - Sua aplicação deve ter o endpoint GET `post/search?q=:searchTerm`",
+      "bonus": true
     }
   ]
 }
