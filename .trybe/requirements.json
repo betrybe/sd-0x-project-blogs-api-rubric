@@ -33,7 +33,7 @@
       "bonus": false
     },
     {
-      "description": "9 - Sua aplicação deve ter o endpoint GET `post/:id``",
+      "description": "9 - Sua aplicação deve ter o endpoint GET `post/:id`",
       "bonus": false
     },
     {
