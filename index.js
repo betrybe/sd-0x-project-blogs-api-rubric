@@ -27,4 +27,4 @@ const errorMiddleware = (err, _req, res, _next) => {
 
 app.use(errorMiddleware);
 
-app.listen(PORT, () => console.log(`Online on ${PORT}!!!`));
+app.listen(PORT, () => console.log(`Online on ${PORT}!`));
