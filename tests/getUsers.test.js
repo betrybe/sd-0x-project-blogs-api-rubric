@@ -63,7 +63,7 @@ describe('3 - Sua aplicação deve ter o endpoint GET `/user`', () => {
       .expect('status', 401)
       .then((responseSales) => {
         const { json } = responseSales;
-        expect(json.message).toBe('Token not found');
+        expect(json.message).toBe('Token não encontrado');
       });
   });
 
@@ -81,7 +81,7 @@ describe('3 - Sua aplicação deve ter o endpoint GET `/user`', () => {
       .expect('status', 401)
       .then((responseSales) => {
         const { json } = responseSales;
-        expect(json.message).toBe('Expired or invalid token');
+        expect(json.message).toBe('Token expirado ou inválido');
       });
   });
 });
