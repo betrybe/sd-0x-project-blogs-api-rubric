@@ -3,7 +3,7 @@ const shell = require('shelljs');
 
 const url = 'http://localhost:3000';
 
-describe('9 - Sua aplicação deve ter o endpoint GET `post/:id`', () => {
+describe('8 - Sua aplicação deve ter o endpoint GET `post/:id`', () => {
   beforeEach(() => {
     shell.exec('npx sequelize-cli db:drop');
     shell.exec('npx sequelize-cli db:create && npx sequelize-cli db:migrate $');
@@ -48,8 +48,6 @@ describe('9 - Sua aplicação deve ter o endpoint GET `post/:id`', () => {
         expect(result.user.displayName).toBe('Lewis Hamilton');
         expect(result.user.email).toBe('lewishamilton@gmail.com');
         expect(result.user.image).toBe('https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg');
-        expect(result.categories[0].id).toBe(1);
-        expect(result.categories[0].name).toBe('Inovação');
       });
   });
 
@@ -68,7 +66,7 @@ describe('9 - Sua aplicação deve ter o endpoint GET `post/:id`', () => {
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-        expect(result.message).toBe('Token not found');
+        expect(result.message).toBe('Token não encontrado');
       });
   });
 
@@ -87,7 +85,7 @@ describe('9 - Sua aplicação deve ter o endpoint GET `post/:id`', () => {
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-        expect(result.message).toBe('Expired or invalid token');
+        expect(result.message).toBe('Token expirado ou inválido');
       });
   });
 
@@ -120,7 +118,7 @@ describe('9 - Sua aplicação deve ter o endpoint GET `post/:id`', () => {
       .then((response) => {
         const { body } = response;
         const result = JSON.parse(body);
-        expect(result.message).toBe('Post does not exist');
+        expect(result.message).toBe('Post não existe');
       });
   });
 });

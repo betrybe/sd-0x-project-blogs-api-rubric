@@ -141,7 +141,7 @@ describe('1 - Sua aplicação deve ter o endpoint POST `/user`', () => {
       .expect('status', 409)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('User already registered');
+        expect(json.message).toBe('Usuário já existe');
       });
   });
 });

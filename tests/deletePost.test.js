@@ -66,7 +66,7 @@ describe('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
       .expect('status', 401)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('Unauthorized user');
+        expect(json.message).toBe('Usuário não autorizado');
       });
   });
 
@@ -98,7 +98,7 @@ describe('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
       .expect('status', 404)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('Post does not exist');
+        expect(json.message).toBe('Post não existe');
       });
   });
 
@@ -116,7 +116,7 @@ describe('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
       .expect('status', 401)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('Token not found');
+        expect(json.message).toBe('Token não encontrado');
       });
   });
 
@@ -134,7 +134,7 @@ describe('11 - Sua aplicação deve ter o endpoint DELETE `post/:id`', () => {
       .expect('status', 401)
       .then((response) => {
         const { json } = response;
-        expect(json.message).toBe('Expired or invalid token');
+        expect(json.message).toBe('Token expirado ou inválido');
       });
   });
 });
