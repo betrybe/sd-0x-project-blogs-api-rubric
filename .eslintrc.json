@@ -1,9 +1,4 @@
 {
-  "extends": "trybe-backend",
-  "parserOptions": {
-    "ecmaVersion": 11
-  },
-  "globals": {
-    "db":"writable"
-  }
+  "root": true,
+  "extends": ["trybe-backend"]
 }
